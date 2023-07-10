@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
+import { player } from "./Slice/player";
+
 
 
 export const store = configureStore({
-	reducer: {}
+	reducer: {
+		player
+	}
 })
 
 
