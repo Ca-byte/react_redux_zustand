@@ -14,6 +14,13 @@ interface ModuleProps{
 export function Module({title, moduleIndex, amountOfLessons}: ModuleProps){
 	const dispatch = useDispatch()
 
+	const {currentModuleIndex, currentLessonIndex} = useAppSelector((state)=> {
+		const {currentModuleIndex, currentLessonIndex} = state.player
+
+		return { currentModuleIndex, currentLessonIndex}
+
+	})
+
 	const lessons = useAppSelector((state)=> {
 		return state.player.course.modules[moduleIndex].lessons
 
@@ -28,19 +35,23 @@ export function Module({title, moduleIndex, amountOfLessons}: ModuleProps){
 					<strong className="text-sm">
 						{title}
 					</strong>
-					<span className="text-xs text-zinco-400">{amountOfLessons}classes</span>
+					<span className="text-xs text-zinco-400">{amountOfLessons} classes</span>
 				</div>
 				<ChevronDown className="w-5 h-5 ml-auto text-zinc-400 group-data-[state=open]:rotate-180 transition-transform" />
 			</Collapsible.Trigger>
 			<Collapsible.Content>
 				<nav className="relative flex flex-col gap-4 p-6">
-					{lessons.map((lesson, lessonIndex)=>{
+					{lessons.map((lesson, lessonIndex)=> {
+						const isCurrent = currentModuleIndex === moduleIndex &&
+						 currentLessonIndex === lessonIndex
+
 						return (
 							<Lesson 
 								key={lesson.id}
 								title={lesson.title} 
 								duration={lesson.duration}
 								onPlay={() => dispatch(play([moduleIndex, lessonIndex]))}
+								isCurrent={isCurrent}
 							/>
 						)
 					})}
