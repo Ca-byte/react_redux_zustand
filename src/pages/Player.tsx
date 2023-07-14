@@ -3,11 +3,18 @@ import { Video } from "../components/Video";
 import { Module } from "../components/Module";
 import { MessageCircle } from "lucide-react";
 import { useAppSelector } from "../store";
+import { useCurrentLesson } from "../store/Slice/player";
+import { useEffect } from "react";
 
 export function Player(){
   const modules = useAppSelector(state =>{
     return state.player.course.modules
   })
+  const { currentLesson } = useCurrentLesson()
+
+  useEffect(() => {
+    document.title = `Watching: ${currentLesson.title}`
+  }, [currentLesson]);
 	return(
 		<div className="h-screen bg-zinc-950 text-zinc-50 flex justify-center items-center">
       <div className="flex w-[1100px] flex-col gap-6">
