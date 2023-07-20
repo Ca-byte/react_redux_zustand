@@ -5,9 +5,11 @@ import { MessageCircle } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "../store";
 import { loadCourse, useCurrentLesson } from "../store/Slice/player";
 import { useEffect } from "react";
+import { SkeletonLoading } from "../components/SkeletonLoading";
 
 export function Player(){
   const dispatch = useAppDispatch()
+  const isCourseLoading = useAppSelector(state => state.player.isLoading)
 
   const modules = useAppSelector(state =>{
     return state.player.course?.modules
@@ -38,6 +40,9 @@ export function Player(){
         <main className="relative flex overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow pr-80">
          <Video />
           <aside className="w-80 divide-y-2 divide-zinc-900 absolute top-0 bottom-0 right-0 border-l border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800 scrollbar-thumb-rounded-lg">
+            {
+              isCourseLoading ? <SkeletonLoading /> : ""
+            }
           {modules &&
           modules.map((module, index) => {
             return(

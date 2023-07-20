@@ -8,7 +8,6 @@ interface LessonProps {
 }
 
 export function Lesson({title, duration, onPlay, isCurrent = false}:LessonProps ){
-	
 	return(
 		<button 
 		onClick={onPlay} 

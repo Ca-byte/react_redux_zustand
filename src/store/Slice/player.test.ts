@@ -23,6 +23,7 @@ const exampleState: PlayerState = {
       },
     ],
   },
+  isLoading: false,
   currentModuleIndex: 0,
   currentLessonIndex: 0,
 }
@@ -56,7 +57,7 @@ describe('player slice', () => {
     const state = reducer({
       ...exampleState,
       currentModuleIndex: 1,
-      currentLessonIndex: 1
+      currentLessonIndex: 1,
     }, next())
 
     expect(state.currentModuleIndex).toEqual(1)
